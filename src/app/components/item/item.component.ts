@@ -11,6 +11,7 @@ import { Item } from 'src/app/interfaces/iItem';
 export class ItemComponent implements OnInit, OnChanges {
   @Input() item!: Item; //comunicação de pai para filho
   @Output() emitindoItemParaEditar = new EventEmitter(); //comunicação de filho para pai
+  @Output() emitindoIdParaDeletar = new EventEmitter();
 
   faPen = faPen;
   faTrash = faTrash
@@ -23,5 +24,17 @@ export class ItemComponent implements OnInit, OnChanges {
 
   editarItem(){
     this.emitindoItemParaEditar.emit(this.item);
+  }
+
+  checarItem(){
+    if(this.item.comprado == true){
+      this.item.comprado = false;
+    }else{
+      this.item.comprado = true;
+    }
+  }
+
+  deletarItem(){
+    this.emitindoIdParaDeletar.emit(this.item.id)
   }
 }
